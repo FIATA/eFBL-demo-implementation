@@ -1,6 +1,9 @@
 # eFBL test implementation
 
-Brief description of your project.
+This is an implementation of the eFBL standard for FIATA. It is a test implementation and should not be used in
+production.
+It has been developed using python for clarity and simplicity.
+
 
 ## Installation
 
@@ -55,7 +58,7 @@ To run the `usage_example.py` script within the Poetry environment, follow these
 
 ## License
 
-This project is licensed under the [License Name] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
