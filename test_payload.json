@@ -43,7 +43,7 @@
         }
       ],
       "name": {
-        "value": "Waters - Stark",
+        "value": "eFBL Testing inc.",
         "language": "en"
       },
       "languageCode": {
@@ -55,23 +55,23 @@
           "value": "Lisa Hirthe"
         },
         "telephone": {
-          "value": "1-881-224-1308"
+          "value": "+41 22 715 45 45"
         },
         "mobileTelephone": {
           "value": "1-444-308-0510"
         },
         "emailAddress": {
-          "value": "Callie45@yahoo.com"
+          "value": "digital@fiata.org"
         },
         "note": []
       },
       "postalAddress": {
-        "postcode": "10248",
-        "streetName": "Anya Burgs",
-        "cityName": "Sarasota",
-        "countryCode": "KR",
-        "countryName": "Pitcairn Islands",
-        "countrySubDivisionName": "Montana"
+        "postcode": "1201",
+        "streetName": "Rue Kléberg 6",
+        "cityName": "Geneva",
+        "countryCode": "CH",
+        "countryName": "Switzerland",
+        "countrySubDivisionName": "GE"
       },
       "taxRegistration": [],
       "governmentRegistration": []

@@ -6,7 +6,7 @@ Brief description of your project.
 
 ### Prerequisites
 
-Before you start, ensure you have Poetry installed on your system. You can install Poetry by following the 
+Before you start, ensure you have Poetry installed on your system. You can install Poetry by following the
 instructions [here](https://python-poetry.org/docs/#installation).
 
 ### Installation Steps

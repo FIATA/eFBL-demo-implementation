@@ -1,7 +1,7 @@
 import os
 
-from dotenv import load_dotenv
 import requests
+from dotenv import load_dotenv
 
 
 load_dotenv()  # Load environment variables from .env file
@@ -30,4 +30,3 @@ def get_token():
         headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
     return response.json()["access_token"]
-
