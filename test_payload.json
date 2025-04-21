@@ -905,7 +905,7 @@
     ],
     "consignor": {
       "name": {
-        "value": "Consignor Test GMbH"
+        "value": "Consignor Test GMbH\nAlyssa Doyle"
       },
       "postalAddress": {
         "postcode": "49591",

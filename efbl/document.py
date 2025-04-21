@@ -14,9 +14,9 @@ VERIFICATION_SERVER = os.getenv("VERIFICATION_SERVER")
 CLIENT_ID = os.getenv("CLIENT_ID")
 SOFTWARE_PROVIDER_ID = os.getenv("SOFTWARE_PROVIDER_ID")
 
-DOCUMENT_ISSUANCE_ENDPOINT = f"{API_SERVER}/api/trakk/v0/integrations/fiata/fbl-json"
-HEALTH_ENDPOINT = f"{API_SERVER}/api/trakk/v0/integrations/health"
-VERIFY_ENDPOINT = f"{VERIFICATION_SERVER}/api/magic-link/v0/documents/fiata/gdti"
+DOCUMENT_ISSUANCE_ENDPOINT = "/api/trakk/v0/integrations/fiata/fbl-json"
+HEALTH_ENDPOINT = "/api/trakk/v0/integrations/health"
+VERIFY_ENDPOINT = "/api/magic-link/v0/documents/fiata/gdti"
 PREVIEW_MODE = "preview"
 ISSUANCE_MODE = "issuance"
 AMENDMENT_MODE = "amendment"
@@ -46,10 +46,18 @@ def extract_document_id_from_response(response: requests.Response) -> str:
 
 
 class eFBLDocument:
-    def __init__(self):
-        self.token = get_token()
+    def __init__(self, token=None, client_id=None, base_url=None):
+        if not token:
+            token = get_token()
+        self.token = token
+        if not client_id:
+            client_id = CLIENT_ID
+        self.client_id = client_id
+        if not base_url:
+            base_url = API_SERVER
+        self.base_url = base_url
 
-    def _get_request(self, url, params=None, payload=None):
+    def _get_request(self, path, params=None, payload=None):
         if params is None:
             params = {}
         if payload is None:
@@ -59,9 +67,10 @@ class eFBLDocument:
         headers = {
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json",
-            "X-Alias-ID": CLIENT_ID,
+            "X-Alias-ID": self.client_id,
         }
-        return requests.request(verb, url, headers=headers, params=params, json=payload)
+        print(f"Making {verb} request to {self.base_url + path}")
+        return requests.request(verb, self.base_url + path, headers=headers, params=params, json=payload)
 
     def health(self):
         response = self._get_request(HEALTH_ENDPOINT)
