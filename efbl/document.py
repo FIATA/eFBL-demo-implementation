@@ -69,7 +69,6 @@ class eFBLDocument:
             "Content-Type": "application/json",
             "X-Alias-ID": self.client_id,
         }
-        print(f"Making {verb} request to {self.base_url + path}")
         return requests.request(verb, self.base_url + path, headers=headers, params=params, json=payload)
 
     def health(self):
@@ -98,9 +97,19 @@ class eFBLDocument:
 
         return document_id, BytesIO(response.content)
 
+    def post_amendment_document(self, payload) -> tuple[str, IO[bytes]]:
+        url_params = {"softwareProviderId": SOFTWARE_PROVIDER_ID, "mode": AMENDMENT_MODE}
+        response = self._get_request(DOCUMENT_ISSUANCE_ENDPOINT, params=url_params, payload=payload)
+        if response.status_code != 200:
+            logger.error(f"Failed to post amendment document: {response.text}")
+            raise Exception(f"Failed to post amendment document: {response.text}")
+        logger.info("Amendment document posted successfully")
+        document_id = extract_document_id_from_response(response)
+
+        return document_id, BytesIO(response.content)
+
     def verify_document(self, document_id: str):
-        response = self._get_request(f"{VERIFY_ENDPOINT}/{document_id}")
+        response = requests.get(VERIFICATION_SERVER + f"{VERIFY_ENDPOINT}/{document_id}")
         if response.status_code != 200:
             logger.error(f"Failed to post verify document: {response.text}")
-        logger.info("Document verification ran successfully")
         return response.json()

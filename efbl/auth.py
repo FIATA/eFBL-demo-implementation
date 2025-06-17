@@ -49,6 +49,5 @@ def get_token(
         headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
     if "access_token" not in response.json():
-        print(data)
         raise ValueError("Failed to get token: " + response.text)
     return response.json()["access_token"]
