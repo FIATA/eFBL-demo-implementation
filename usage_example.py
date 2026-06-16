@@ -8,12 +8,14 @@ from collections.abc import Iterable
 from datetime import datetime
 from typing import IO
 
+from efbl.cli_output import StateColorFormatter
 from efbl.document import eFBLDocument
 
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 stream_handler = logging.StreamHandler(sys.stdout)
+stream_handler.setFormatter(StateColorFormatter())
 logger.addHandler(stream_handler)
 
 

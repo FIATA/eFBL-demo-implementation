@@ -3,6 +3,8 @@ import os
 import requests
 from dotenv import load_dotenv
 
+from .cli_output import log_curl
+
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -48,6 +50,7 @@ def get_token(
         data=data,
         headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
+    log_curl(response)
     if "access_token" not in response.json():
         raise ValueError("Failed to get token: " + response.text)
     return response.json()["access_token"]

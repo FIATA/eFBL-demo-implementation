@@ -7,6 +7,7 @@ from typing import IO
 import requests
 
 from .auth import get_token
+from .cli_output import log_curl
 
 
 API_SERVER = os.getenv("API_SERVER")
@@ -69,7 +70,9 @@ class eFBLDocument:
             "Content-Type": "application/json",
             "X-Alias-ID": self.client_id,
         }
-        return requests.request(verb, self.base_url + path, headers=headers, params=params, json=payload)
+        response = requests.request(verb, self.base_url + path, headers=headers, params=params, json=payload)
+        log_curl(response)
+        return response
 
     def health(self):
         response = self._get_request(HEALTH_ENDPOINT)
@@ -92,6 +95,7 @@ class eFBLDocument:
         response = self._get_request(DOCUMENT_ISSUANCE_ENDPOINT, params=url_params, payload=payload)
         if response.status_code != 200:
             logger.error(f"Failed to post issuance document: {response.text}")
+            raise Exception(f"Failed to post issuance document: {response.text}")
         logger.info("Issuance document posted successfully")
         document_id = extract_document_id_from_response(response)
 
@@ -110,6 +114,7 @@ class eFBLDocument:
 
     def verify_document(self, document_id: str):
         response = requests.get(VERIFICATION_SERVER + f"{VERIFY_ENDPOINT}/{document_id}")
+        log_curl(response)
         if response.status_code != 200:
             logger.error(f"Failed to post verify document: {response.text}")
         return response.json()
